@@ -1,0 +1,13 @@
+# cd /etc/systemd/system => my_app.service =>
+
+[Unit]
+Description=My python web application
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/code/my_app.py
+ExecStartPre=/opt/code/configure_db.sh
+ExecStartPost=/opt/code/email_status.sh
+Restart=always
+
+[Install]
+WantedBy=multi-user-target
