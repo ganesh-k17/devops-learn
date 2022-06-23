@@ -16,3 +16,5 @@ NAT:
 Default adapter.
 
 Bridge Adapter:
+
+# NAT vs NAT Network
