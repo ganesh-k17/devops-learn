@@ -18,3 +18,36 @@ Default adapter.
 Bridge Adapter:
 
 # NAT vs NAT Network
+
+
+# If IP address is not found in VM by installing VM in virtual box(using ip addr show)
+
+In my case, I installed two CentOS virtual machine by using VMware Player (Host OS: CentOS7). I found no IP address for both of virtual machines. The IP address set by following the below procedures.
+
+Check the current connection on your VM:
+
+## nmcli con show
+NAME      UUID     TYPE      DEVICE
+ens33     xxxxxx   ethernet  ---
+
+The network is not activated yet after virtual machine installation.
+
+Lets, activate the network connection by using this command:
+
+## nmcli con up ens33
+Connection successfully activated xxxxxxx
+Check whether the newly activated network is ready:
+
+## nmcli con show
+NAME        UUID        TYPE        DEVICE
+ens33       xxxxxx      ethernet    ens33
+Now check your IP address on CentOS virtual machine:
+
+## ip address show | grep inet
+inet 127.0.0.1/8 scope host lo
+inet6 ::1/128 scope host
+inet 192.168.xxx.xxx/xx brd 192.168.xxx.xxx scope global noprefixroute dynamic ens33
+inet6 xxxxxxx
+Your IP address for the CentOS virtual machine is : 192.168.xxx.xxx/xx
+
+
