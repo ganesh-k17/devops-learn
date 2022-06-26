@@ -51,3 +51,15 @@ inet6 xxxxxxx
 Your IP address for the CentOS virtual machine is : 192.168.xxx.xxx/xx
 
 
+# Network manager troubleshoot
+
+To check Network manager status (whether enabled or not!)
+$ systemctl status NetworkManager
+
+To enable Network manager
+$ systemctl enable NetworkManager
+
+To restart Network manager
+$ sudo systemctl restart NetworkManager
+
+
