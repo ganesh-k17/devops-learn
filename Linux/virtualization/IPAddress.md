@@ -19,6 +19,22 @@ Bridge Adapter:
 
 # NAT vs NAT Network
 
+## Various network options:
+
+VM can reach       |VMs can reach  | Host can reach|Other s/ms in  |
+internet/other     |    others     | VM (Without   | N/W can reach | Solution
+s/m in n/w         |               | forwarding)   |      VM       |  
+-------------------| ------------- | ------------- | ------------- | ---------------    
+Yes                | No            |   No          |      No       |  NAT
+-------------------| ------------- | ------------- | ------------- | ---------------  
+Yes                | Yes           |   No          |      No       |  NAT Network
+-------------------| ------------- | ------------- | ------------- | ----------------    
+No            	   | Yes           |   Yes         |      No       |  Host Network
+-------------------| ------------- | ------------- | ------------- | ----------------  
+Yes                | Yes           |   Yes         |      No       |  Host N/w + NAT
+-------------------| ------------- | ------------- | ------------- | ----------------  
+Yes                | Yes           |   Yes         |      Yes      |  Bridged Network
+
 
 # If IP address is not found in VM by installing VM in virtual box(using ip addr show)
 
@@ -61,5 +77,7 @@ $ systemctl enable NetworkManager
 
 To restart Network manager
 $ sudo systemctl restart NetworkManager
+
+
 
 
