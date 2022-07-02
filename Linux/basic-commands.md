@@ -41,7 +41,7 @@ you can also type the following
 If you want to quit without saving any changes, type the following 
 :q! Enter 
 
- 
+ :q! or :wq! => for quiting from readonly file.
 
 Find => /<word to search in editor> 
 
