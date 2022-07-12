@@ -42,3 +42,17 @@ eg:
 * Application Server
 * Email Server
 * Backup Server
+
+## Commonly used Web Framework:
+
+* Express (nodejs)
+* Spring (Java)
+* Django (Python)
+* Flask (Python)
+
+
+```txt 
+Static web servers are usually called as Web servers.
+Dynamic web servers are usually called as Application servers.
+```
+
