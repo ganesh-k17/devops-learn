@@ -70,3 +70,9 @@ We can split the configuration files as for the various site using the Include o
 Include conf/houses.conf
 Include conf/oranges.conf
 ```
+
+## Others:
+
+```bash
+$ cp -R <source_folder>/* <destination_folder>  ## to copy fiesl from a folder to another folder in linux
+```
