@@ -78,3 +78,9 @@ Application dependencies:
   }
 }
 ```
+
+To clone an application from github 
+
+```bash
+cd /home/thor/; git clone https://github.com/contentful/the-example-app.nodejs
+```
