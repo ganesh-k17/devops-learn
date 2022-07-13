@@ -20,6 +20,12 @@ service httpd restart   # restart the server
 
 ```
 
+## Default Port:
+
+80 is the default port.
+
+Default page: https://localhost:80
+
 ## View logs
 
 ```bash
