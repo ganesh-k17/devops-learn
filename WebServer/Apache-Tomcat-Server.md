@@ -12,7 +12,9 @@ Prerequisites:
 
 yum install java-1.8.0-openjdk-devel  # install java
 
-wget https://downloads.apache.org/tomcat/tomcat-8/v8.5.53/bin/apache-tomcat-8.5.53.tar.gz # instal apache tomcat serveer
+wget https://downloads.apache.org/tomcat/tomcat-8/v8.5.53/bin/apache-tomcat-8.5.53.tar.gz # download apache tomcat serveer using wget command
+
+curl -OL https://downloads.apache.org/tomcat/tomcat-8/v8.5.69/bin/apache-tomcat-8.5.69.tar.gz  # download using curl commnd
 
 tar xvf apache-tomcat-8.5.53.tar.gz  # extract the downloaded file
 
@@ -141,3 +143,47 @@ cat ~/apache-tomcat-8.5.53/logs/catalina.out
 We can view the app by https://localhost:8080/app
 
 
+## Others:
+```bash
+$ sudo mv apache-tomcat-8.5.69 /opt/apache-tomcat-8  # to move 8.5.69 folder to /opt/8 folder and rename it to 8.
+```
+
+## To change the port
+
+```bash
+sudo sed -i 's/8081/9090/g' /opt/apache-tomcat-8/conf/server.xml  # to change port by sed command to edit the server.xml
+sudo /opt/apache-tomcat-8/bin/shutdown.sh # to shutdown the server 
+sudo /opt/apache-tomcat-8/bin/startup.sh  # to start the server.  We have changed the serverfile and to get it effect we need to restart the server that's what we have done by shutdown and start the server again.
+curl localhost:9090; ps -ef | grep tomcat  #  to check whether the tomcat is running on 9090 port.
+```
+
+## Lab:
+
+```bash
+thor@host01 ~$ sudo curl -OL https://downloads.apache.org/tomcat/tomcat-8/v8.5.81/bin/apache-tomcat-8.5.81.tar.gz
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 10.1M  100 10.1M    0     0  4890k      0  0:00:02  0:00:02 --:--:-- 4892k
+thor@host01 ~$ sudo tar xvf apache-tomcat-8.5.81.tar.gz
+thor@host01 ~$ sudo mv apache-tomcat-8.5.81 /opt/apache-tomcat-8 
+thor@host01 ~$ sudo /opt/apache-tomcat-8/bin/startup.sh
+Using CATALINA_BASE:   /opt/apache-tomcat-8
+Using CATALINA_HOME:   /opt/apache-tomcat-8
+Using CATALINA_TMPDIR: /opt/apache-tomcat-8/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /opt/apache-tomcat-8/bin/bootstrap.jar:/opt/apache-tomcat-8/bin/tomcat-juli.jar
+Using CATALINA_OPTS:   
+Tomcat started.
+thor@host01 ~$ curl lkocalhost:8081; ps -ef | grep tomcat
+curl: (6) Could not resolve host: lkocalhost; Unknown error
+root       480     1  0 03:08 pts/2    00:00:03 /usr/bin/java -Djava.util.logging.config.file=/opt/apache-tomcat-8/conf/logging.properties -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager -Djdk.tls.ephemeralDHKeySize=2048 -Djava.protocol.handler.pkgs=org.apache.catalina.webresources -Dorg.apache.catalina.security.SecurityListener.UMASK=0027 -Dignore.endorsed.dirs= -classpath /opt/apache-tomcat-8/bin/bootstrap.jar:/opt/apache-tomcat-8/bin/tomcat-juli.jar -Dcatalina.base=/opt/apache-tomcat-8 -Dcatalina.home=/opt/apache-tomcat-8 -Djava.io.tmpdir=/opt/apache-tomcat-8/temp org.apache.catalina.startup.Bootstrap start
+thor       556   324  0 03:08 pts/2    00:00:00 grep --color=auto tomcat
+thor@host01 ~$ 
+```
+
+
+```bash
+thor@host01 /$ cd /opt/ ; sudo mv /opt/sample.war /opt/apache-tomcat-8/webapps/
+thor@host01 /opt$ curl http://localhost:9090/sample/index.html
+sudo cat  /opt/apache-tomcat-8/logs/catalina.out # to check the log to verify the deployment.
+```
