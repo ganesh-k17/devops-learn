@@ -29,10 +29,41 @@ if __name__ == '__main__':
  
     # run() method of Flask class runs the application
     # on the local development server.
-    app.run()
+    app.run(host="0.0.0.0", port=8080)
 ```
 
 ```bash
-pip instal -r requirements.txt
+pip install -r requirements.txt
 python main.py
+```
+
+## Tools used for prduction to deploy Flask:
+
+* Gunicorn
+* uWSGI
+* Gevent
+* Twisted Web
+
+Commands to deploy by Gunicorn:
+
+```bash
+gunicor main:app # gunicorn filename:appname
+gunicorn main:app -w 2  # for two workers
+```
+
+
+Others:
+
+```bash
+sudo sed -i 's/8080/5000/g' app.py; python app.py  # to change the port in flask app from 8080 to 5000
+```
+
+
+Lab:
+
+```bash
+sudo pip install gunicorn --upgrade  # install gunicorn
+gunicorn app:app  #to run app using gunicorn
+gunicorn app:app -w 3  # run the app using
+ps -ef | grep gunicorn | grep -v grep  # to find how many number gunicorn is running currently
 ```
