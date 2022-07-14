@@ -71,7 +71,7 @@ package.json
 
 ```
 
-```nodejs
+```bash
 npm install  # install all the dependencies
 node app.js   # run the application
 npm run start  # run the aplication using npm (it will runs the start command in scripts section in package.json )
