@@ -89,6 +89,9 @@ Other tools :
 ## PM2: Process Manager 2
 
 ```bash
+npm install -g pm2 # to install pm2 globally
 pm2 start app.js
 pm2 start app.js -i 4 # with 4 workers
+ps -ef | grep node #  to see the nodes running
+ps -ef | grep PM2  # to confirm pm2 PID as parent PID for those forks
 ```
