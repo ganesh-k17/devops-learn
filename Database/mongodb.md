@@ -23,6 +23,7 @@
 * Configure package management system (yum).
 * Install mongodb-org  ```yum install mongodb-org```
 * Start mongoDB service ```systemctl start mongd```
+* Enable mongoDB service ```systemctl enable mongod```
 * Check the service status ```systemctl status mongod```
 
 ## Logs:
