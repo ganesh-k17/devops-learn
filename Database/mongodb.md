@@ -65,7 +65,6 @@ setParameter:
 ## Commands by mongo shell
 
 ```shell
-
 $ mongo  # to connect mongo
 mongo> show dbs
 mongo> use school  # to create new database or switch to existingh database
@@ -75,9 +74,6 @@ mongo> show collections # to show the collections in the current db
 mongo> db.persons.insert({"name":"John Doe","location":"New york"}) # create a new document in the collection persons.
 mongo> db.persons.find() # list all the documents in the collections
 mongo> db.person.find({"name":"John Doe"}) # to find the exact data in the documents for the given parameter
-
-
-
 ```
 
 
