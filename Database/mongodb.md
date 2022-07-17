@@ -77,6 +77,8 @@ mongo> db.person.find({"name":"John Doe"}) # to find the exact data in the docum
 ```
 
 
+## Installation Steps:
 
+https://linuxize.com/post/how-to-install-mongodb-on-centos-7/
 
 
