@@ -4,3 +4,19 @@ In two-tier, the application logic is either buried inside the User Interface on
 
 ## Three-Tier Database Architecture –
 In three-tier, the application logic or process lives in the middle-tier, it is separated from the data and the user interface. Three-tier systems are more scalable, robust and flexible. In addition, they can integrate data from multiple sources. In the three-tier architecture, a middle tier was added between the user system interface client environment and the database management server environment. There are a variety of ways of implementing this middle tier, such as transaction processing monitors, message servers, or application servers.
+
+## Sample Two Tier Application:
+
+* Install Firewall
+* Install MariaDB
+* Configure Firewall
+* Configure Database
+* Load Data
+
+## Install Firewall
+
+```bash
+sudo yum install firewalld
+sudo service firewalld start
+sudo systemctl enable firewalld
+```
