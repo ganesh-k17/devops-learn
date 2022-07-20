@@ -20,3 +20,27 @@ sudo yum install firewalld
 sudo service firewalld start
 sudo systemctl enable firewalld
 ```
+
+## Install MariaDB
+
+```bash
+sudo yum  install mariadb-server
+sudo vi /etc/my.cnf # configure the file with the right port
+sudo service mariadb start  # start maria db
+```
+
+## Configure Firewall
+
+```bash
+sudo firewall-cmd -permanent --zone=public --add-port=3306/tcp
+sudo firewall-cmd --reload
+```
+
+## Configure Database
+
+```bash
+$ mysql
+MariaDB > CREATE DATABASE ecomdb
+MARIADB > CREATE USER 'ecomuser'@'localhost' IDENTIFIED BY 'ecompassword'
+MARIADB > GRANT ALL PRIVILEGE
+```
