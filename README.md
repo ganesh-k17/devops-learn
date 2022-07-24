@@ -1,2 +1,2 @@
 # devops-learn
-devops things by learn.
+devops things by learn
