@@ -65,3 +65,21 @@ To make sure firewalld is not started by accessing the firewalld D-Bus interface
 ```bash
 systemctl mask firewalld
 ```
+
+## Who is using it?
+
+firewalld is used in the following Linux distributions as the default firewall management tool:
+
+* RHEL 7 and newer
+* CentOS 7 and newer
+* Fedora 18 and newer
+* SUSE 15 and newer
+* OpenSUSE 15 and newer
+
+## Applications and libraries which support firewalld as a firewall management tool include:
+
+* NetworkManager
+* libvirt
+* podman
+* docker (iptables backend only)
+* fail2ban
