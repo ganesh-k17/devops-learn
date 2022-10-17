@@ -68,5 +68,3 @@
 ## Continuous Deployment
 
 * Automated process in which the cod is taken from the repository and deployed to the system.
-
-
