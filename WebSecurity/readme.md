@@ -134,4 +134,42 @@ prioritize list of security threats and risks on an organisation to strengthen t
   * Confidentiality - data os pm;u available to priviledged users
   * Integrity - data is correct and can be trusted
   * Availablity - data is available when needed
-  ### 
+  
+## Filter Input and Control Output
+* Desiging check points (Defense in depth)
+* We have to stop threats early (good data can be allowed and bad data should be kept out)
+
+### Regulate requests
+* Http requests should be regulated which requets should be allowed. (Get, Post are sample request types)
+* Request and response formates should be defined (html or json, etc for accept or content-type for the request)
+* Ip address, urls, query parameter, user-agent string, size also should be regulated to keep web seurity.
+ 
+### Validate input
+* Data validation confirms whether the input is proper acceptable data
+* Presence/length validation
+* Validate type of data
+* Validate by regular expression like validating mail address format
+* Validating by uniqueness (already exists)
+
+### Sanitize data
+### Label variables
+### Keep code private
+### Keep credentials private
+### keep error messages vague
+### Smart logging 
+
+## The most common attacks
+
+### Types of credential attacks
+###  Strong passwords
+### URL manipulation and insecure direct object reference(IDOR)
+### SQL injection
+### Cross site scripting (XSS)
+### Cross site request forgery (CSRF)
+### Cross site request protections
+### Cookie visiility and theft
+### Session hijacking
+### Session fixation
+### Remote code execution
+### File upload abuse
+### Denial of service
