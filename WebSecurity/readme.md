@@ -152,6 +152,14 @@ prioritize list of security threats and risks on an organisation to strengthen t
 * Validating by uniqueness (already exists)
 
 ### Sanitize data
+* typecasting data before use (eg: int to string or string int)
+* When data is passed to API to sql we have to do SQl sanitization on data and vise-versa.
+* Data should be properly formated and validated before passing through a communication channel.
+* Add escape characters before powerful characters ("")
+* Replace powerful characters with harmless equivalents
+* Use proper encoding and escaping on data 
+* Data should be properly sanitize before storing to sql or other database.
+
 ### Label variables
 ### Keep code private
 ### Keep credentials private
