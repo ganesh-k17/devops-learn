@@ -29,3 +29,74 @@ prioritize list of security threats and risks on an organisation to strengthen t
 ## Zero-Day vulnerabilities
 
 * A software flaw or exploit which exposes a vulnerability but does not yet have a fix or patch available.  That hasm't been detected or worked on by those developed the system.
+
+## General security Principles:
+
+### Least Privilege
+
+* Limit the access (Users or Features only to required users)
+* ``` Every program and every privileged user of the system should operate using the least amount of privilege necessary to complete the job```
+* eg: Users on customer portal should not be given access to the admin portal, human resouce portal, etc.
+* Least privilege hsould be applied to all the applications,
+  * APIs
+  * System resources
+  * DB acess
+  * Software version controls
+  * Web pages
+  * Source code's communication with other modules (in source code)
+* Benefits:
+  * Control access to systems and resources
+  * Grant as little access as possible
+  * Expire access as soon as it's no longer needed
+  * Limits vulnerability, reduces damages
+
+### Simple is more secure
+
+* Simple or small application is easy to maintain and more secure,  Large application is more vulnerable to maintain
+* Increase Security by code
+  * Use clearly named functions and variables 
+  * Write code comments
+  * Prefer built-in functions
+  * Remove cruft from the code
+  * Cleaner code is easy to understand and less vulnerable
+  * Disable unused features
+  * Breakup long sections of code into smaller
+  * Don't repeat the code (duplications)
+  * Remove unnecessary complexity
+
+### Never trust users
+
+* Every users can be a hacker
+* Verify and validate users identity properly
+* People change and their mindset
+* Reconsider previleges often
+* Users can be tricked by someone (eg: hackers)
+
+### Always expect the unexpect
+
+* Whatever happen at anytime.
+* Should be cautious
+* Edge cases
+  * All the edge cases shold be properly validated.
+  * Challenge the assumption
+
+### Defense in depth
+
+* It is too risky to have a single point of failure.
+* Always should have a backup plan (if any security fails)
+* It would increase the complexity of an attack
+* Defensive Controls
+  * Physical (Protect servers and other computer h/ws)
+  * Technical (Hardware, software and n/w protections (Firewall, Intrusion detection, Antivirus, Event logging, Data backups) )
+  * Administrative (Policies and procedures to protect the system)
+  
+### Security through obscurity
+
+* ```Loose lips might sink ships```
+* Less information should be given (in browser headers, etc.)
+* Website link should not have language extension (eg: www.xxx.com/index.php), The attacker can easily identify the programming language used to develop the application.
+* Security through obscurity is not security at all.  But obscurity is a good defense but it works better with other security. (Keeping money behind the photo frame is more security than having in centre of the open room)
+
+### Deny list and allow lists
+
+* 
