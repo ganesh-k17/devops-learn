@@ -100,3 +100,38 @@ prioritize list of security threats and risks on an organisation to strengthen t
 ### Deny list and allow lists
 
 * 
+
+### Map exposure points and data passageways
+* Understanding of how users are accessing the applications, how data flow via application we can control our web security
+* Mapping Data Input
+  * URLs
+  * Forms
+  * Cookies
+  * Session Data
+  * Database reads
+  * APIs
+* Mapping Data in Transition
+  * Internet
+  * Wireless communications
+  * Network hardware
+  * Network software
+* Mapping  Data in Storage
+  * Databases
+  * hard drives
+  * The cloud
+  * Portable media (flash drives, CDs)
+  * Backup files
+* Mapping Data outpu
+  * HTML, CSS, JavaScript
+  * JSON, XML, CSV
+  * Cookies
+  * Session Data
+  * Database writes
+  * APIs
+  * Log files
+* Web security is by data security also
+* Data security goals are Confidentiality, Integrity and Availability (CIA)
+  * Confidentiality - data os pm;u available to priviledged users
+  * Integrity - data is correct and can be trusted
+  * Availablity - data is available when needed
+  ### 
