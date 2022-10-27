@@ -186,13 +186,39 @@ accessed by web and private code only accessible via code.)
 
 * Dont provide information on error message for hackers to guess the error (Can give login error message as 
 'login failed' instead of username incorrect)
+* Browser error reporting of detail error message is fine in developement but when in production it should be switched off.
 
 ### Smart logging 
 
-## The most common attacks
+* We need to be smart on what should be logged
+* We should log sensitive actions and suspicious activity
+* What to log:
+  * Date and time (this is critical to establishing a timeline of events!)
+  * Source (IP, user)
+  * ACtion and target (target mab be admin page or database to steal data)
+  * URL, parameters, cookies (which can be used to identify any of the details already has been compromised!)
+  * Backtrace
+* Be aware on not logging any sensitive data
+* User log rotate
 
+## The most common attacks
 ### Types of credential attacks
+
+* Bruteforce attack
+* Dictionary attack
+
 ###  Strong passwords
+
+* Use long passwords (12 characters minimum)
+* Use character variety (A-Z, a-z, 0-9. symbols)
+* Avoid patterns and dictionary words
+* Never reuse passowrds
+* Use good software manager
+* SSH keys is good alternative to passwords
+* Use multifactor authentication
+* Password hashing
+* Can use login throttling (it may avoid bruteforce attack )
+
 ### URL manipulation and insecure direct object reference(IDOR)
 ### SQL injection
 ### Cross site scripting (XSS)
