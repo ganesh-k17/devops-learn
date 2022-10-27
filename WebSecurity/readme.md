@@ -161,9 +161,32 @@ prioritize list of security threats and risks on an organisation to strengthen t
 * Data should be properly sanitize before storing to sql or other database.
 
 ### Label variables
+
+* Use proper variable names to identify whether the data is sanitized so that the developer confirm that the data 
+has been sanitized (for eg. if we have a variable urlParam then after sanitizing (eg: pass the url params to sanitize() method to
+sanitize the data) we can assign the sanitized result to clean-urlParam variable)
+
 ### Keep code private
+
+* Control visiblity for the code by private variables as much as possible.
+* If possible have a seperate folders for public and private codes (means public folder can be 
+accessed by web and private code only accessible via code.)
+* Public scope code should be minimal as much as possible.
+
 ### Keep credentials private
+
+* Avoid hardcoding credentials
+* Seperate configuration file from code
+* All files with credentials should be excluded from version control
+* dont save credentials in database as plain text (encrypt it before storing the credentials)
+* SSH can be used to encrypt credentials and may disable password logins completely to connect to remote server
+* Poor handling of credentials can be a weak link on security
+
 ### keep error messages vague
+
+* Dont provide information on error message for hackers to guess the error (Can give login error message as 
+'login failed' instead of username incorrect)
+
 ### Smart logging 
 
 ## The most common attacks
