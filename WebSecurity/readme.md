@@ -207,7 +207,7 @@ accessed by web and private code only accessible via code.)
 * Bruteforce attack
 * Dictionary attack
 
-###  Strong passwords
+### Strong passwords
 
 * Use long passwords (12 characters minimum)
 * Use character variety (A-Z, a-z, 0-9. symbols)
