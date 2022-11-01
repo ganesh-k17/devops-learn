@@ -220,8 +220,49 @@ accessed by web and private code only accessible via code.)
 * Can use login throttling (it may avoid bruteforce attack )
 
 ### URL manipulation and insecure direct object reference(IDOR)
+
 ### SQL injection
+
+* It is an attack that occurs when entrusted data is used to construct as sql query.
+* The data is inserted or injected into a sql query to hack data
+* ```Code injection is the top security threat to web applications``` - OWASP
+* Blind Sql injection
+  * Vulnerability changed to the request by query but the response will not be altered.  So the user would not aware of attack.
+  * Sql Sleep function: To confirm whether attack works the hacker would inject sleep command as well so that it could produce slow response and hacker confirm that attack works then they inject other command blindly as they know it would work.
+* Solution to avoid Sql injection:
+  * Limit the application;s database privileges.
+  * Limit permission to create, drop or truncate tables.
+  * Don't grant access privileges to database users.
+  * Never let the application connect as the root user
+  * Always escape sql after data input (Sql sanitize)
+  * Use allow-lists to validate data before using data in a query
+
 ### Cross site scripting (XSS)
+
+* It is a type of injection, in which malicious scripts are injected into trusted websites.
+* XSS attacks occur when an attacker uses a web application to send malicious code, generally in the form of a browser side script to a different end user.
+* Types
+  * Reflected in url
+  * Stored
+  * Dom based
+* Avoid by
+  * Proper validations
+  * Using allow-lists
+  * Use java-script sanitization
+* Use HTTP only cookies, it prevents javascript to steal data from cookies.
+
+    ```Set-cookie: user_id=24;HttpOnly```
+
+* Define content security Policy (CSP)
+  * Provide instructions to a browser about which types of resources can be used and which websites are allowed to provide them.
+  * Can set Content-Security-Policy in meta data.
+
+    ```html
+    <meta http-equiv="Content-Security-Policy" Content="script-src" 'self'; object-src 'self'> 
+    ```
+
+  * ```http://csp-evaluator.withgoogle.com``` tool to evaluate content security policy.
+  
 ### Cross site request forgery (CSRF)
 ### Cross site request protections
 ### Cookie visiility and theft
