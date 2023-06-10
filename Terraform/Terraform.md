@@ -74,3 +74,102 @@ terraform apply -refresh=<false/true> # refresh is disabled for apply
 terraform graph # show the graph by the statefile and show the dependency graph
 terraform graph | dot -Tsvg > graph.svg   # graphviz should be installed.  Show the dependency graph as svg file.
 ```
+
+## Meta Arguments:
+
+- depends_on:
+
+```tf
+resource "local_file" "pet" {
+    filename = var.filename
+    content = var.content
+    depends_on = [
+        random_pet.my-pet
+    ]
+}
+
+resource "random_pet" "my-pet" {
+    prefix = var.prefix
+    separator = var.separator
+    length = var.length
+}
+```
+
+- lifecycle:
+
+```tf
+resource "local_file" "pet" {
+    filename = "/root/pets.txt"
+    content = "We love pets!"
+    file_permission = 0700
+    lifecycle {
+        create_before_destroy = true
+    }
+}
+```
+
+- Count
+
+```t
+resource "local_file" "pet" {
+    filename = var.filename[count.index]
+    count = 3  # Explicitly mentioned count value as 3
+}
+variable "filename" {
+    default = [
+        "/root/pets.txt",
+        "/root/dogs.txt",
+        "/root/cats.txt"
+    ]
+}
+```
+
+```t
+resource "local_file" "pet" {
+    filename = var.filename[count.index]
+    count = length(var.filename)  # it would pick the length from the filename variable and assigned to count
+}
+variable "filename" {
+    default = [
+        "/root/pets.txt",
+        "/root/dogs.txt",
+        "/root/cats.txt"
+        "/root/deer.txt"
+        "/root/peacock.txt"
+    ]
+}
+```
+
+- for-each
+
+```t
+resource "local_file" "pet" {
+    filename = each.value
+    for-each =var.filename  # it would pick the length from the filename variable and assigned to count
+}
+variable "filename" {
+    type = set(string)
+    default = [
+        "/root/pets.txt",
+        "/root/dogs.txt",
+        "/root/cats.txt"
+    ]
+}
+```
+
+for-each only support only map or set. so if the filename is list type we have to convert it to set by using `toset()` method,
+
+```t
+resource "local_file" "pet" {
+    filename = each.value
+    for-each = toset(var.filename)  # it would pick the length from the filename variable and assigned to count
+}
+variable "filename" {
+    type = list(string)
+    default = [
+        "/root/pets.txt",
+        "/root/dogs.txt",
+        "/root/cats.txt"
+    ]
+}
+```
