@@ -173,3 +173,81 @@ variable "filename" {
     ]
 }
 ```
+
+Version Constraints:
+
+```t
+terraform {
+    required_providers {
+        local = {
+            source = "hashicorp/local"
+            version = "1.4.0"
+            # version = "!= 2.0.0"
+            # version = "> 1.1.0"
+            # version = "> 1.2.0, < 2.0.0, != 1.4.0"
+            # version = "~> 1.2"
+            # version = "~> 1.2.0"
+        }
+    }
+}
+
+resource "local_file" "pet" {
+    filename = "/root/pet.txt"
+    content = "We love pets!"
+}
+```
+
+## Remote state:
+
+- Remote Backends with S3 and Dynamo DB
+
+Here S3 used to store Terraform and Dynamo DB is used to support state locking (and consistent check).
+
+```t
+
+resource "local_file" "pet" {
+    filename = "/root/pets.txt"
+    content = "we love pets."
+}
+
+terraform {
+    backend "s3" {
+        bucket = "ganesh-terraform-state-bucket01"
+        key = "finance/terraform.tfstate"
+        region = "us-west-1"
+        dynamodb_table = "state-locking"  # this table should have a primary or a hash key with the name lockID.
+    }
+}
+
+```
+
+- Terraform state commands
+
+```shell
+terraform state list [options] [address]
+
+# aws_dynamodb_table.cars
+# aws_s3_bucket.finance-2020922
+
+terraform state list aws_s3_bucket.finance-2020922
+# aws_s3_bucket.finance-2020922
+
+terraform state show [options] [address]
+
+terraform state show aws_s3_bucket.finance-2020922
+
+terraform state mv [options] SOURCE DESTINATION  # Moving state file from one to another
+
+terraform state mv "aws_dynamodb_table.state-locking" to "aws_dynamodb_table.state-locking-db"
+
+terraform state pull | jq '.resources[] | select(.name == "state-locking-db")|.instances[].attributes.hash_key'
+
+# LockID
+
+terraform state rm <RESOURCE-ADDRESS>  # Remove an item from terraform state file
+
+# Acquiring state lock.  This may take a few moments...
+# Removed aws_s3_bucket.finance-2020922
+# Successfully removed 1 resource instance(s)
+# Releasing state lock.  This may take a few moments...
+```
