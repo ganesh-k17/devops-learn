@@ -251,3 +251,5 @@ terraform state rm <RESOURCE-ADDRESS>  # Remove an item from terraform state fil
 # Successfully removed 1 resource instance(s)
 # Releasing state lock.  This may take a few moments...
 ```
+
+## Terraform `Taint`
