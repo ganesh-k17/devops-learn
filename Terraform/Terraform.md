@@ -79,7 +79,7 @@ terraform graph | dot -Tsvg > graph.svg   # graphviz should be installed.  Show 
 
 - depends_on:
 
-```tf
+```t
 resource "local_file" "pet" {
     filename = var.filename
     content = var.content
@@ -97,7 +97,7 @@ resource "random_pet" "my-pet" {
 
 - lifecycle:
 
-```tf
+```t
 resource "local_file" "pet" {
     filename = "/root/pets.txt"
     content = "We love pets!"
@@ -201,7 +201,7 @@ resource "local_file" "pet" {
 
 - By ignore default values (have empty variables.)
 
-  ```tf
+  ```t
   variable "filename" {
 
   }
@@ -252,7 +252,7 @@ resource "local_file" "pet" {
 
 ## Make use of one resource to another resource by using reference expression
 
-```tf
+```t
 resource "local file" "pet" {
     filename = var.filename
     content = "My favorite pet is ${random_pet.my-pet.id}"   # we have used random_pet resource id property to geneate content
@@ -268,7 +268,7 @@ resource "random_pet" "my-pet" {
 
 ## Explicit Dependency using depends_on attribute
 
-```tf
+```t
 resource "local file" "pet" {
     filename = var.filename
     content = "My favorite pet is cat"
@@ -285,7 +285,7 @@ resource "random_pet" "my-pet" {
 
 ## output variable
 
-```tf
+```t
 resource "local file" "pet" {
     filename = var.filename
     content = "My favorite pet is ${random_pet.my-pet.id}"   # we have used random_pet resource id property to geneate content
@@ -304,6 +304,51 @@ output pet-name {
 # we can use `terraform output` command to display all the output variables in the current congiruation directory.
 # we can use `terraform output pet-name` to display particualt output variable value.
 ```
+
+## Life-cycle rules
+
+```t
+resource "local_file" "pet" {
+    filename = "/root/pets.txt"
+    content = "We love pets!"
+    file_permission = "0700"
+
+    lifecycle {
+        prevent_destroy = true
+    }
+}
+
+# other life-cycle rules
+
+# create_before_destroy -> Create the resource first and then destroy older
+# prevent_destroy -> Prevents destroy of a resource
+# ignore_changes  -> Ignore Changes to Resource Attributes (specific/all)
+```
+
+## Datasource
+
+Data sources allow Terraform to use information defined outside of Terraform, defined by another separate Terraform configuration, or modified by functions or other approaches.
+
+Data attribute have similar syntax of resource!
+
+```t
+resource "local_file" "pet" {
+    filename = "/root/pets.txt"
+    content = data.local_file.dog.content   # we have to use data object to use dog datasource content
+}
+
+data "local_file" "dog" {
+    filename = "/root/pets.txt"
+}
+```
+
+Difference between Resource and Data source:
+
+| Resource                                      | Data Source                    |
+| --------------------------------------------- | ------------------------------ |
+| Keyword : **resource**                        | Keyword: **data**              |
+| **Creates, Updates, Destroys** Infrastructure | Only **Reads** Infrastructure  |
+| Also called **Managed Resources**             | Also called **Data Resources** |
 
 ## Remote state
 
