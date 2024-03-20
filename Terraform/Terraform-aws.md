@@ -158,3 +158,119 @@ resource "aws_dynamodb_table_item" "car-items" {
     EOF
 }
 ```
+
+## EC2 with Terraform
+
+```t
+provider "aws" {
+    region = "us-west-1"
+}
+
+resource "aws_security_group" "ssh-access" {
+    name = "ssh-access"
+    description = "Allow SSH access from the internet"
+    ingress {
+        from_port = 22
+        to_port = 22
+        protocol = "tcp"
+        cidr_blocks = ["0.0.0.0/0"]
+    }
+}
+
+resource "aws_instance" "webserver" {
+    ami = "ami-oedab43b6fa892279"
+    instance_type = "t2.micro"
+    tags = {
+        Name = "webserver"
+        Description = "An Nginx Webserver on Ubuntu"
+    }
+    key_name = aws_key_pair.web.id
+    vpc_security_group_ids = [ aws_security_group.ssh-access.id ]
+    user_data = <<EOF
+    #!/bin/bash
+    sudo apt update
+    sudo apt install nginx -y
+    systemctl enable nginx
+    systemctl start nginx
+    EOF
+}
+
+resource "aws_key_pair" "web" {
+    public_key = file("/root/.ssh/web.pub")
+}
+
+output publicip {
+    value = aws_instance.webserver.public_ip
+}
+```
+
+Terraform Provisioners:
+
+It is like user data. They are commands to run in the created instances.
+
+Remote Exec:
+
+These commands in the inline list will be run on the remote instance once the resource created.
+It is not garuanteed that the commands run, since it may require internet connectivity. So we would have security group added for ssh to enable internet connectivity for the instance.
+
+```t
+resource "aws_instance" "webserver" {
+    ami = "ami-08749374937498374983"
+    instance_type = "t2.micro"
+    provisioner "remote-exec" {
+        inline = [
+            "sudo apt update",
+            "sudo apt install nginx -y",
+            "sudo systemctl enable nginx",
+            "sudo systemctl start nginx"
+        ]
+    }
+    connection {
+        type = "ssh"
+        host = self.public_ip
+        user = "ubuntu"
+        private_key = file("/root/.ssh/web")
+    }
+    key_name = aws_key_pair.web.id
+    vpc_security_group_ids = [aws_security_group.ssh-access.id]
+}
+
+resource "aws_security_group" "ssh-access" {
+    # code here
+}
+
+resource "aws_key_pair" "web" {
+     # code here
+}
+
+resource "aws_eip" eip {  # create elastic ip for the instance and it runs local-exec script to print public dns
+    vpc = true
+    instance = aws_instance.cerberus.id
+    provisioner "local-exec" {
+      command = "echo ${aws_eip.eip.public_dns} >> /root/cerberus_public_dns.txt"
+    }
+}
+```
+
+Local Exec:
+
+Local exec provisioner is used to run tasks on the local machine where we running
+the Terraform binary and not on the resources we are creating using terraform.
+
+```t
+resource "aws_instance" "webserver" {
+    ami = "ami-0edab43b6fa892279"
+    instance_type = "t2.micro"
+    provisioner "local-exec" {
+        on_failure = fail   # we can use continue instead of fail to make the apply command success eventhough this local-exec provisioner fails (this on_failure is called Failure Behaviour Provisioner)
+        command = "echo Instance ${aws_instance.webserver.public_ip} created! > /temp/instance_state.txt"
+    }
+
+    provisioner "local-exec" {
+        when = destroy  # This is Destroy Time Provisioner (to guide when this command should be executed.  Here it is while destroy the resource.)
+        command = "echo Instance ${aws_insance.webserver.public_ip destroyed > /tmp/instance_state.txt"
+    }
+}
+```
+
+Note: Whereever possible we need to make use of options natively available like Userdata instead of provisioners in AWS and Custom data for Azure, metadata for GCP, etc.
