@@ -274,3 +274,24 @@ resource "aws_instance" "webserver" {
 ```
 
 Note: Whereever possible we need to make use of options natively available like Userdata instead of provisioners in AWS and Custom data for Azure, metadata for GCP, etc.
+
+## foreach example
+
+```t
+resource "aws_iam_user" "cloud" {
+     name = split(":",var.cloud_users)[count.index]
+     count = length(split(":",var.cloud_users))
+
+}
+resource "aws_s3_bucket" "sonic_media" {
+     bucket = var.bucket
+
+}
+
+resource "aws_s3_object" "upload_sonic_media" {
+    bucket = aws_s3_bucket.sonic_media.id
+    key = substr(each.value, 7, 20)
+    source = each.value
+    for_each = var.media
+}
+```

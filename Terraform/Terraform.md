@@ -406,3 +406,102 @@ terraform state rm <RESOURCE-ADDRESS>  # Remove an item from terraform state fil
 ```
 
 ## Terraform `Taint`
+
+When a resource marked as Taint, while running terraform plan it force the resource to be recreated instead of update.
+
+```bash
+terraform taint aws_instance.webserver
+```
+
+```bash
+terraform untaint aws_instance.webserver
+```
+
+## Debugging
+
+We can debug and investigate terraform execution by setting TF_LOG environment variable.
+
+The options can be,
+
+- INFO
+- WARNING
+- ERROR
+- DEBUG
+- TRACE
+
+```bash
+export TF_LOG=TRACE
+```
+
+We can use TF_LOG_PATH to save the terraform execution logs to a file.
+
+```bash
+export TF_LOG_PATH=/tmp/terraform.log
+```
+
+## Terraform Import
+
+`terraform import` lets you target a resource that already exists, and map it to a resource you've defined in code and manage the resources by terraform. (But The datasources in terraform can be used to only access the data not manage the resource with terraform)
+
+```bash
+terraform import <resource_type>.<resource_name> <attribute>
+```
+
+```t
+# When we run terraform import, we would get error as resource does not exist in the configuration.
+# terraform import would not update terraform configuration. So to make it work we have to create a dummy resource in tf file as below
+
+# main.tf
+
+resource "aws_instance" "webserver-2" {
+    # ( resource arguments )
+}
+
+# When we call the terraform import.  it would import the resource.
+terraform import aws_instance.webserver-2 i-02342984792874982
+
+# now the resource is imported in the terraform state file.
+# then we can update the resource values in the terraform resource.
+# These data can be get from aws console or we can get the data from terraform state file as it is already imported.
+
+
+resource "aws_instance" "webserver-2" {
+    ami = "ami-0edab43b6fa892279"
+    instane_type = "t2.micro"
+    key_name = "ws"
+    vpc_security_group_ids = ["sg-8064fdee"]
+}
+
+# once all the arguments are added and while running `terraform plan`, it would refresh the state and it would get to know that resource already exist and does not have any change.  Going forward any changes to this resource can be carried out by terraform configuration file and follw the terraform workflow.
+```
+
+## Other Terraform functions
+
+- file: `eg: file("/root/terraform-projects/main.tf")`
+- length: `eg: length(var.filename)`
+- toset: `eg: toset(var.regions)`
+
+### Other Terraform function categories
+
+- Numeric Functions
+  - max(-1,2,-10,200,-250)
+  - min(-1,2,-10,200, -250)
+  - ceil(10.1)
+  - floor(10.9)
+- String Functions
+  - split(",", "ami-xyz, AMI-ABC, ami-efg")
+  - lower(var.ami)
+  - upper(var.ami)
+  - title(var.ami)
+  - title(var.ami)
+  - substr(var.ami, 0, 7)
+  - join(",",["ami-xyz","AMI-ABC","ami-efg"])
+- Collection Functions
+  - length(var.ami)
+  - index(var.ami, "AMI-ABC")
+  - element(var.ami,2)
+  - contains(var.ami, "AMI-ABC")
+- Map Functions
+  - keys(var.ami)
+  - values(var.ami)
+  - lookup(var.ami, "ca-central-1")
